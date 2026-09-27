@@ -1,0 +1,98 @@
+INFO:Detectors:
+Detector: arbitrary-send-eth
+VulnerableVault.emergencyWithdraw(address) (VulnerableVault.sol#132-136) sends eth to
+arbitrary user
+        Dangerous calls:
+        - (sent,None) = to.call{value: bal}() (VulnerableVault.sol#134)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#functions-that-
+send-ether-to-arbitrary-destinations
+INFO:Detectors:
+Detector: weak-prng
+VulnerableVault.pickWinner() (VulnerableVault.sol#101-118) uses a weak PRNG: "winnerIndex =
+rand % stakers.length (VulnerableVault.sol#109)"
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#weak-PRNG
+INFO:Detectors:
+Detector: reentrancy-eth
+Reentrancy in VulnerableVault.withdraw(uint256) (VulnerableVault.sol#81-94):
+        External calls:
+        - (sent,None) = msg.sender.call{value: amount}() (VulnerableVault.sol#85)
+        State variables written after the call(s):
+        - balances[msg.sender] -= amount (VulnerableVault.sol#90)
+        VulnerableVault.balances (VulnerableVault.sol#40) can be used in cross function
+reentrancies:
+        - VulnerableVault.balances (VulnerableVault.sol#40)
+        - VulnerableVault.deposit() (VulnerableVault.sol#67-76)
+        - VulnerableVault.receive() (VulnerableVault.sol#147-151)
+        - VulnerableVault.withdraw(uint256) (VulnerableVault.sol#81-94)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-
+vulnerabilities-1
+INFO:Detectors:
+Detector: unchecked-transfer
+VulnerableVault.pickWinner() (VulnerableVault.sol#101-118) ignores return value by
+rewardToken.transfer(winner,REWARD_AMOUNT) (VulnerableVault.sol#115)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#unchecked-transfer
+INFO:Detectors:
+Detector: missing-zero-check
+VulnerableVault.setOwner(address).newOwner (VulnerableVault.sol#124) lacks a zero-check on
+:
+                - owner = newOwner (VulnerableVault.sol#125)
+VulnerableVault.emergencyWithdraw(address).to (VulnerableVault.sol#132) lacks a zero-check
+on :
+                - (sent,None) = to.call{value: bal}() (VulnerableVault.sol#134)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#missing-zero-
+address-validation
+INFO:Detectors:
+Detector: reentrancy-benign
+Reentrancy in VulnerableVault.withdraw(uint256) (VulnerableVault.sol#81-94):
+        External calls:
+        - (sent,None) = msg.sender.call{value: amount}() (VulnerableVault.sol#85)
+        State variables written after the call(s):
+        - totalStaked -= amount (VulnerableVault.sol#91)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-
+vulnerabilities-3
+INFO:Detectors:
+Detector: reentrancy-events
+Reentrancy in VulnerableVault.pickWinner() (VulnerableVault.sol#101-118):
+        External calls:
+        - rewardToken.transfer(winner,REWARD_AMOUNT) (VulnerableVault.sol#115)
+        Event emitted after the call(s):
+        - RewardPaid(winner,REWARD_AMOUNT) (VulnerableVault.sol#117)
+Reentrancy in VulnerableVault.withdraw(uint256) (VulnerableVault.sol#81-94):
+        External calls:
+        - (sent,None) = msg.sender.call{value: amount}() (VulnerableVault.sol#85)
+        Event emitted after the call(s):
+        - Withdrawn(msg.sender,amount) (VulnerableVault.sol#93)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-
+vulnerabilities-4
+INFO:Detectors:
+Detector: timestamp
+VulnerableVault.pickWinner() (VulnerableVault.sol#101-118) uses timestamp for comparisons
+        Dangerous comparisons:
+        - require(bool,string)(block.timestamp >= lastRewardTime + REWARD_INTERVAL,too soon)
+(VulnerableVault.sol#102)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#block-timestamp
+INFO:Detectors:
+Detector: solc-version
+Version constraint ^0.8.20 contains known severe issues
+(https://solidity.readthedocs.io/en/latest/bugs.html)
+        - VerbatimInvalidDeduplication
+        - FullInlinerNonExpressionSplitArgumentEvaluationOrder
+        - MissingSideEffectsOnSelectorAccess.
+It is used by:
+        - ^0.8.20 (VulnerableVault.sol#2)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-
+versions-of-solidity
+INFO:Detectors:
+Detector: low-level-calls
+Low level call in VulnerableVault.withdraw(uint256) (VulnerableVault.sol#81-94):
+        - (sent,None) = msg.sender.call{value: amount}() (VulnerableVault.sol#85)
+Low level call in VulnerableVault.emergencyWithdraw(address) (VulnerableVault.sol#132-136):
+        - (sent,None) = to.call{value: bal}() (VulnerableVault.sol#134)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#low-level-calls
+INFO:Detectors:
+Detector: immutable-states
+VulnerableVault.rewardToken (VulnerableVault.sol#38) should be immutable
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#state-variables-
+that-could-be-declared-immutable
+INFO:Slither:VulnerableVault.sol analyzed (2 contracts with 102 detectors), 14 result(s)
+found

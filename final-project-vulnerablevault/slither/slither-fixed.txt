@@ -1,0 +1,34 @@
+INFO:Detectors:
+Detector: weak-prng
+VulnerableVaultFixed.pickWinner() (VulnerableVaultFixed.sol#156-179) uses a weak PRNG:
+"winnerIndex = rand % stakers.length (VulnerableVaultFixed.sol#163)"
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#weak-PRNG
+INFO:Detectors:
+Detector: timestamp
+VulnerableVaultFixed.pickWinner() (VulnerableVaultFixed.sol#156-179) uses timestamp for
+comparisons
+        Dangerous comparisons:
+        - require(bool,string)(block.timestamp >= lastRewardTime + REWARD_INTERVAL,too soon)
+(VulnerableVaultFixed.sol#157)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#block-timestamp
+INFO:Detectors:
+Detector: solc-version
+Version constraint 0.8.20 contains known severe issues
+(https://solidity.readthedocs.io/en/latest/bugs.html)
+        - VerbatimInvalidDeduplication
+        - FullInlinerNonExpressionSplitArgumentEvaluationOrder
+        - MissingSideEffectsOnSelectorAccess.
+It is used by:
+        - 0.8.20 (VulnerableVaultFixed.sol#2)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-
+versions-of-solidity
+INFO:Detectors:
+Detector: low-level-calls
+Low level call in VulnerableVaultFixed.withdraw(uint256) (VulnerableVaultFixed.sol#89-115):
+        - (sent,None) = msg.sender.call{value: amount}() (VulnerableVaultFixed.sol#111)
+Low level call in VulnerableVaultFixed.emergencyWithdraw(address)
+(VulnerableVaultFixed.sol#196-202):
+        - (sent,None) = to.call{value: bal}() (VulnerableVaultFixed.sol#200)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#low-level-calls
+INFO:Slither:VulnerableVaultFixed.sol analyzed (2 contracts with 102 detectors), 5
+result(s) found

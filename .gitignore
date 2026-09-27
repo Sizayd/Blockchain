@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# Solidity / Slither / Hardhat-Foundry style build artifacts
+**/build/
+**/artifacts/
+**/cache/
+**/out/
+
+# Misc
+.DS_Store
