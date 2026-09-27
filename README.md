@@ -17,6 +17,7 @@ a full smart-contract security audit.
 | `lab03-incident-triage/` | Lab 3 | 5 incident scenarios: 51% attack, key leak, front-end tampering, Eclipse attack, sabotage |
 | `lab04-proof-of-work/` | Lab 4 | `pow_demo.py` — mining difficulty comparison, tamper-detection test |
 | `lab05-proof-of-stake/` | Lab 5 | `pos_simulator.py` — stake-weighted proposer selection + slashing |
+| `lab06-multisig-quorum/` | Lab 6 | GnosisDAO Safe multisig reading + 3-of-4 startup treasury quorum design |
 | `lab07-trace-privacy-transactions/` | Lab 7 | Bitcoin vs. Monero traceability, privacy primitives |
 | `lab08-slither-audit/` | Lab 8 | `Vulnerable.sol` reentrancy audit + Checks-Effects-Interactions fix |
 | `lab09-hardening-checklist/` | Lab 9 | USER / NODE / NETWORK hardening checklist |
@@ -26,8 +27,6 @@ a full smart-contract security audit.
 | `lab13-ethernaut/` | Lab 13 | `CoinFlipAttack.sol` / `TelephoneAttack.sol` — Ethernaut Levels 3 & 4 |
 | `setup/` | — | Ethernaut setup guide (Module 11) |
 | `final-project-vulnerablevault/` | Final Project | Full Slither + manual audit of `VulnerableVault.sol` (11 findings, fixed contract, slides) |
-
-> Lab 6 was not part of the uploaded coursework and is not included here.
 
 ## Final project highlight
 
